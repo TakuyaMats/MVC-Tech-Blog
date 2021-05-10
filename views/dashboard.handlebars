@@ -1,14 +1,11 @@
-{{#each blogs as |blog|}}
-
 <div class="card">
     <div class="card-header">
-        <a href="/blog/{{blog.id}}">{{blog_title}}</a>
-        <p>bloged By: {{user.username}}
+        <p>{{blog_title}}</p>
+        <p>Posted By: {{user.username}}
             On: {{format_date date_created}}</p>
     </div>
     <div class="card-body">
         <p class="card-text">{{blog_content}}</p>
     </div>
-</div>
 
-{{/each}}
+</div>
