@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/blog/:id', async (req, res) => {
+router.get('/blog/:id', withAuth, async (req, res) => {
     try {
         const blogData = await Blog.findByPk(req.params.id, {
             include: [
@@ -48,7 +48,7 @@ router.get('/blog/:id', async (req, res) => {
     }
 });
 
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
     try {
         const userData = await User.findAll({
             attributes: { exclude: ["password" ]},

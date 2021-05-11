@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Blog } = require('../../models');
 
 
 router.get('/', async (req, res) => {
@@ -27,8 +27,8 @@ router.get('/:id', async (req, res) => {
                 id: req.params.id,
             },
             include: [{
-                model: Post,
-                attributes: ["id", "post_title", "post_content", "date_created"],
+                model: Blog,
+                attributes: ["id", "title", "description", "date_created"],
             }, ],
         });
 
@@ -49,10 +49,15 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const userData = await User.create(req.body);
+        const userData = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        })
 
         req.session.save(() => {
             req.session.user_id = userData.id;
+            req.session.email = userData.email;
             req.session.logged_in = true;
 
             res.status(200).json(userData);
@@ -92,6 +97,7 @@ router.post('/login', async (req, res) => {
 
         req.session.save(() => {
             req.session.user_id = userData.id;
+            req.session.email = userData.email;
             req.session.logged_in = true;
 
             res.json({
