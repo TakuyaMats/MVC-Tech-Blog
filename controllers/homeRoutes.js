@@ -33,11 +33,7 @@ router.get('/blog/:id', async (req, res) => {
             include: [
             {
                 model: User,
-                attributes: ['name'],
-            },
-            {
-                model: Comment,
-                attributes: ['comment, date_created']
+                attributes: ['username'],
             },
         ],
         });
@@ -61,7 +57,7 @@ router.get('/dashboard', async (req, res) => {
             attributes: { exclude: ["password" ]},
             include: [
                 {
-                    model: Post
+                    model: Blog
                 },
             ],
         });
