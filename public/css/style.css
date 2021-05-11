@@ -1,25 +1,25 @@
 .header {
     background-color: #231010;
-};
+}
 
 body {
     background-color: #D9EAD3;
-};
+}
 
 .nav-link {
     color: #D9EAD3;
     padding: 2rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     letter-spacing: 1px;
-};
+}
 
 main {
     background-color: #D9EAD3;
-};
+}
 
 a {
     text-decoration: none;
-};
+}
 
 .tech-blog {
     width: 25%;
@@ -35,7 +35,11 @@ a {
     font-weight: 100;
     letter-spacing: 1.5px;
     padding-top: 5px;
-};
+}
+
+.card {
+    border: 3px solid;
+}
 
 .card .card-header {
     padding: 15px;
@@ -43,14 +47,23 @@ a {
     color: #D7E3D1;
     display: flex;
     justify-content: space-between;
-};
+}
 
 .card .card-header p {
     padding: 2px;
     letter-spacing: 1.2px;
-};
+}
 
 .card .card-header a {
     text-decoration: none;
     color: #D7E3D1;
-};
+}
+
+
+#post-title {
+    border: 2px solid lightskyblue;
+}
+
+#post-content {
+    border: 2px solid lightskyblue;
+}
