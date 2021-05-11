@@ -1,16 +1,13 @@
 [
     {
-        "username": "Mike213",
         "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare vestibulum arcu non pulvinar. Donec nibh neque, cursus sed tristique ut, imperdiet ac purus.",
         "date_created": "1/2/2021"
     },
     {
-        "username": "JohnKatz11",
         "comment": "Duis congue metus eget hendrerit pharetra. Praesent in urna placerat, accumsan metus eget, varius nibh. Donec feugiat tortor ut ex congue lobortis.",
         "date_created": "2/2/2021"
     },
     {
-        "username": "CoderLegend59",
         "comment": "Suspendisse aliquet diam sed ante ornare, vitae vestibulum quam dictum. Ut dapibus ante a elit ullamcorper auctor. Proin accumsan feugiat lectus in iaculis.",
         "date_created": "3/21/2021"
     }
