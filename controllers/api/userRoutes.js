@@ -1,5 +1,9 @@
 const router = require('express').Router();
-const { User, Blog, Comment } = require('../../models');
+const {
+    User,
+    Blog,
+    Comment
+} = require('../../models');
 
 
 router.get('/', (req, res) => {
@@ -17,13 +21,15 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     User.findOne({
-            attributes: { exclude: ['password'] },
+            attributes: {
+                exclude: ['password']
+            },
             where: {
                 id: req.params.id
             },
             include: [{
                     model: Blog,
-                    attributes: [ 'id', 'title', 'description', 'date_created' ]
+                    attributes: ['id', 'title', 'description', 'date_created']
                 },
                 {
                     model: Comment,
@@ -41,7 +47,9 @@ router.get('/:id', (req, res) => {
         })
         .then(userData => {
             if (!userData) {
-                res.status(404).json({ message: 'No user found with this id' });
+                res.status(404).json({
+                    message: 'No user found with this id'
+                });
                 return;
             }
             res.json(userData);
@@ -53,57 +61,87 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
+// router.post('/', (req, res) => {
 
-    User.create({
-        username: req.body.username,
-        password: req.body.password
-    })
+//     User.create({
+//             username: req.body.username,
+//             password: req.body.password
+//         })
 
-    .then(userData => {
-            req.session.save(() => {
-                req.session.user_id = userData.id;
-                req.session.username = userData.username;
-                req.session.logged_in = true;
+//         .then(userData => {
+//             req.session.save(() => {
+//                 req.session.user_id = userData.id;
+//                 req.session.username = userData.username;
+//                 req.session.logged_in = true;
 
-                res.json(userData);
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+//                 res.json(userData);
+//             });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).json(err);
+//         });
+// });
+
+router.post('/', async (req, res) => {
+    try {
+        const userData = await User.create({
+            username: req.body.username,
+            password: req.body.password
         });
+        req.session.save(() => {
+            req.session.user_id = userData.id;
+            req.session.username = userData.username;
+            req.session.logged_in = true;
+
+            res.status(200).json(userData);
+        });
+    } catch (err) {
+        res.status(400).json(err);
+    }
 });
 
-router.post('/login', (req, res) => {
-    User.findOne({
+router.post('/login', async (req, res) => {
+    try {
+        const userData = await User.findOne({
             where: {
-                username: req.body.username
+                email: req.body.email
             }
-        }).then(userData => {
-            if (!userData) {
-                res.status(400).json({ message: 'No user with that username!' });
-                return;
-            }
-            const validPassword = userData.checkPassword(req.body.password);
-
-            if (!validPassword) {
-                res.status(400).json({ message: 'Incorrect password!' });
-                return;
-            }
-            req.session.save(() => {
-
-                req.session.user_id = userData.id;
-                req.session.username = userData.username;
-                req.session.logged_in = true;
-
-                res.json({ user: userData, message: 'You are now logged in!' });
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
         });
+
+        if (!userData) {
+            res
+                .status(400)
+                .json({
+                    message: 'Incorrect email or password, please try again'
+                });
+            return;
+        }
+
+        const validPassword = await userData.checkPassword(req.body.password);
+
+        if (!validPassword) {
+            res
+                .status(400)
+                .json({
+                    message: 'Incorrect email or password, please try again'
+                });
+            return;
+        }
+
+        req.session.save(() => {
+            req.session.user_id = userData.id;
+            req.session.logged_in = true;
+
+            res.json({
+                user: userData,
+                message: 'You are now logged in!'
+            });
+        });
+
+    } catch (err) {
+        res.status(400).json(err);
+    }
 });
 
 router.post('/logout', (req, res) => {
@@ -126,7 +164,9 @@ router.put('/:id', (req, res) => {
         })
         .then(userData => {
             if (!userData[0]) {
-                res.status(404).json({ message: 'No user found with this id' });
+                res.status(404).json({
+                    message: 'No user found with this id'
+                });
                 return;
             }
             res.json(userData);
@@ -146,7 +186,9 @@ router.delete('/:id', (req, res) => {
         })
         .then(userData => {
             if (!userData) {
-                res.status(404).json({ message: 'No user found with this id' });
+                res.status(404).json({
+                    message: 'No user found with this id'
+                });
                 return;
             }
             res.json(userData);

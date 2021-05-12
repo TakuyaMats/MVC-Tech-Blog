@@ -67,3 +67,20 @@ a {
 #post-content {
     border: 2px solid lightskyblue;
 }
+
+.no-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 100%;
+    color: #D9EAD3;
+    padding: 2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 1px;
+}
+
+.no-button:hover {
+    color: #065b83;
+    text-decoration: underline;
+}
