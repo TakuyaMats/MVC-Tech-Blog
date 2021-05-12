@@ -15,7 +15,8 @@ Blog.init({
         allowNull: false,
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
+        allowNull: false
     },
     date_created: {
         type: DataTypes.DATE,
@@ -36,7 +37,6 @@ Blog.init({
     },
 }, {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'blog',
