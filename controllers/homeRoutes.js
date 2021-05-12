@@ -73,11 +73,55 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 router.get('/login', (req, res) => {
     if (req.session.logged_in) {
-        res.redirect('/blog');
+        res.redirect('/');
         return;
     }
 
     res.render('login');
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const userData = await User.findAll({
+            attributes: {
+                exclude: ["password"]
+            }
+        });
+
+        res.status(200).json(userData);
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const userData = await User.findOne({
+            attributes: {
+                exclude: ["password"]
+            },
+            where: {
+                id: req.params.id,
+            },
+            include: [{
+                model: Blog,
+                attributes: ["id", "title", "description", "date_created"],
+            }, ],
+        });
+
+        if (!userData) {
+            res.status(404).json({
+                message: `No user with the ID ${req.params.id} found`
+            });
+            return;
+        }
+        res.status(200).json(userData);
+
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
 });
 
 module.exports = router;
