@@ -3,7 +3,7 @@ const { Blog, Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
-    Post.findAll({
+    Blog.findAll({
             attributes: ['id',
                 'title',
                 'description',
@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Post.findOne({
+    Blog.findOne({
             where: {
                 id: req.params.id
             },
