@@ -11,7 +11,7 @@ router.get('/', withAuth, (req, res) => {
             attributes: [ 'id', 'title', 'description', 'date_created' ],
             include: [{
                     model: Comment,
-                    attributes: ['id', 'comment_comment', 'blog_id', 'user_id', 'date_created'],
+                    attributes: ['id', 'comment', 'blog_id', 'user_id', 'date_created'],
                     include: {
                         model: User,
                         attributes: ['username']
@@ -24,8 +24,8 @@ router.get('/', withAuth, (req, res) => {
             ]
         })
         .then(blogData => {
-            const posts = blogData.map(post => post.get({ plain: true }));
-            res.render('dashboard', { posts, logged_in: true });
+            const blogs = blogData.map(blog => blog.get({ plain: true }));
+            res.render('dashboard', { blogs, logged_in: true });
         })
         .catch(err => {
             console.log(err);
@@ -45,7 +45,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
                 },
                 {
                     model: Comment,
-                    attributes: ['id', 'comment_comment', 'blog_id', 'user_id', 'date_created'],
+                    attributes: ['id', 'comment', 'blog_id', 'user_id', 'date_created'],
                     include: {
                         model: User,
                         attributes: ['username']
@@ -59,8 +59,8 @@ router.get('/edit/:id', withAuth, (req, res) => {
                 return;
             }
 
-            const post = blogData.get({ plain: true });
-            res.render('edit-blog', { post, logged_in: true });
+            const blog = blogData.get({ plain: true });
+            res.render('edit-blog', { blog, logged_in: true });
         })
         .catch(err => {
             console.log(err);
