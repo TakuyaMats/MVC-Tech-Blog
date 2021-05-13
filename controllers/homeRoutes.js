@@ -37,10 +37,6 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-// router.get('/login', (req, res) => {
-//     res.render('login');
-// });
-
 router.get('/blog/:id', (req, res) => {
     Blog.findOne({
             where: {

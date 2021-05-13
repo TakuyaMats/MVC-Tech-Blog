@@ -8,7 +8,7 @@ router.get('/', withAuth, (req, res) => {
             where: {
                 user_id: req.session.user_id
             },
-            attributes: [ 'id', 'title', 'description', 'date_created' ],
+            attributes: ['id', 'title', 'description', 'date_created'],
             include: [{
                     model: Comment,
                     attributes: ['id', 'comment', 'blog_id', 'user_id', 'date_created'],
@@ -24,8 +24,13 @@ router.get('/', withAuth, (req, res) => {
             ]
         })
         .then(blogData => {
-            const blogs = blogData.map(blog => blog.get({ plain: true }));
-            res.render('dashboard', { blogs, logged_in: true });
+            const blogs = blogData.map(blog => blog.get({
+                plain: true
+            }));
+            res.render('dashboard', {
+                blogs,
+                logged_in: true
+            });
         })
         .catch(err => {
             console.log(err);
@@ -38,7 +43,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
             where: {
                 id: req.params.id
             },
-            attributes: [ 'id', 'title', 'description', 'date_created' ],
+            attributes: ['id', 'title', 'description', 'date_created'],
             include: [{
                     model: User,
                     attributes: ['username']
@@ -55,12 +60,19 @@ router.get('/edit/:id', withAuth, (req, res) => {
         })
         .then(blogData => {
             if (!blogData) {
-                res.status(404).json({ message: 'No post found with this id' });
+                res.status(404).json({
+                    message: 'No post found with this id'
+                });
                 return;
             }
 
-            const blog = blogData.get({ plain: true });
-            res.render('edit-blog', { blog, logged_in: true });
+            const blog = blogData.get({
+                plain: true
+            });
+            res.render('edit-blog', {
+                blog,
+                logged_in: true
+            });
         })
         .catch(err => {
             console.log(err);
@@ -71,7 +83,5 @@ router.get('/edit/:id', withAuth, (req, res) => {
 router.get('/new', (req, res) => {
     res.render('new-blog');
 });
-
-// make a post for my api/dashboard to create a new post.
 
 module.exports = router;
