@@ -72,5 +72,6 @@ router.get('/new', (req, res) => {
     res.render('new-blog');
 });
 
+// make a post for my api/dashboard to create a new post.
 
 module.exports = router;

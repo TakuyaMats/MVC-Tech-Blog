@@ -60,38 +60,12 @@ router.get('/:id', (req, res) => {
         });
 });
 
-
-// router.post('/', (req, res) => {
-
-//     User.create({
-//             username: req.body.username,
-//             password: req.body.password
-//         })
-
-//         .then(userData => {
-//             req.session.save(() => {
-//                 req.session.user_id = userData.id;
-//                 req.session.username = userData.username;
-//                 req.session.logged_in = true;
-
-//                 res.json(userData);
-//             });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json(err);
-//         });
-// });
-
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
     try {
-        const userData = await User.create({
-            username: req.body.username,
-            password: req.body.password
-        });
+        const userData = await User.create(req.body);
+
         req.session.save(() => {
             req.session.user_id = userData.id;
-            req.session.username = userData.username;
             req.session.logged_in = true;
 
             res.status(200).json(userData);
@@ -198,5 +172,7 @@ router.delete('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
+
+// make a post for my sign up page. 
 
 module.exports = router;
