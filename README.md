@@ -22,6 +22,10 @@ SO THAT I can publish articles, blog posts, and my thoughts and opinions
 
 ## 2. Site Links & Video Demonstration
 
+[github repository site] https://github.com/TakuyaMats/MVC-Tech-Blog.git
+
+[live site] https://rocky-depths-43987.herokuapp.com/
+
 ### Home Page
 
 ---
@@ -51,8 +55,6 @@ SO THAT I can publish articles, blog posts, and my thoughts and opinions
 ---
 
 ![Image-Demo](./imgs/login-signup.png "Image")
-
-[github repository site] https://github.com/TakuyaMats/MVC-Tech-Blog.git
 
 <a name="usage"></a>
 
